@@ -1,0 +1,7 @@
+1. GitHub 저장소에서 .github/workflows/android-build.yml 파일을 엽니다.
+2. 연필(편집) 버튼을 누릅니다.
+3. 기존 내용을 모두 지우고 이 수정본 내용을 붙여넣습니다.
+4. Commit changes를 누른 뒤 Actions에서 다시 실행합니다.
+5. 다시 실패하면 Artifacts의 build-log를 내려받아 첫 번째 Gradle 오류를 확인합니다.
+
+Node 20 경고는 이번 APK 누락 실패의 직접 원인이 아닙니다.
