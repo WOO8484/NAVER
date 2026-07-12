@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  allowBackup=false 와 함께, 앱 내부 데이터(설정/로그/SharedPreferences/파일/DB)를
+  클라우드 백업과 기기 이전(D2D)에서 모두 제외한다.
+  자료/로그/태그/본문 등이 어떤 백업에도 포함되지 않는다.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" />
+        <exclude domain="file" />
+        <exclude domain="database" />
+        <exclude domain="sharedpref" />
+        <exclude domain="external" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="root" />
+        <exclude domain="file" />
+        <exclude domain="database" />
+        <exclude domain="sharedpref" />
+        <exclude domain="external" />
+    </device-transfer>
+</data-extraction-rules>

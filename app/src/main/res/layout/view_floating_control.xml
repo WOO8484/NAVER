@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="230dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_floating_panel">
+
+    <!-- 헤더 (드래그 이동 핸들 + 닫기) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/floatingHandle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="≡ GPT 공작소"
+            android:textColor="@color/floating_text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingVertical="4dp" />
+
+        <TextView
+            android:id="@+id/btnClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_close_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="✕"
+            android:textColor="@color/floating_text"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- 상태(단계/진행률/태그/사진/재시도/시험모드/실패원인, 작업지시서 4.3) -->
+    <TextView
+        android:id="@+id/floatingStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="자료 없음"
+        android:textColor="#FFCFD2D6"
+        android:textSize="11sp"
+        android:paddingVertical="4dp" />
+
+    <!-- 일반 모드 주 조작: 일시정지 / 이어하기 / 즉시 중지 (작업지시서 4.2) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="4dp">
+
+        <TextView
+            android:id="@+id/btnAutoPause"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/bg_floating_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="일시정지"
+            android:textColor="@color/floating_text"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btnAutoResume"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="3dp"
+            android:background="@drawable/bg_floating_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="이어하기"
+            android:textColor="@color/floating_text"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btnAutoCancel"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:background="@drawable/bg_floating_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="즉시 중지"
+            android:textColor="@color/floating_text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- 수동 복구 펼치기(기본 접힘, 작업지시서 4.2) -->
+    <TextView
+        android:id="@+id/btnToggleRecovery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="▾ 수동 복구 펼치기"
+        android:textColor="#FFCFD2D6"
+        android:textSize="11sp" />
+
+    <LinearLayout
+        android:id="@+id/recoveryPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:id="@+id/btnTitle"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_floating_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="제목 입력"
+                android:textColor="@color/floating_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/btnBody"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_floating_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="본문 입력"
+                android:textColor="@color/floating_text"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnTagsAuto"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_floating_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="태그 1개씩 자동 입력"
+            android:textColor="@color/floating_text"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:id="@+id/btnTagNext"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_floating_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="다음 태그 복사"
+                android:textColor="@color/floating_text"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/btnTagAgain"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_floating_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="현재 태그 다시"
+                android:textColor="@color/floating_text"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_floating_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="사진 첨부 화면 열기"
+            android:textColor="@color/floating_text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

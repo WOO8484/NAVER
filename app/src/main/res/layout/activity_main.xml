@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 헤더 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/naver_green_dark"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="v1.1.0 · 완전 자동화(발행/임시저장은 직접)"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+
+        <!-- 1) 자료 -->
+        <LinearLayout style="@style/CardBox">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="① 자료"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/badgeData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔴 자료 없음"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLoad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="자료 ZIP 불러오기" />
+
+            <TextView android:id="@+id/txtTitle" style="@style/InfoLine" android:text="제목: -" />
+            <TextView android:id="@+id/txtBody" style="@style/InfoLine" android:text="본문: -" />
+            <TextView android:id="@+id/txtTags" style="@style/InfoLine" android:text="태그: -" />
+            <TextView android:id="@+id/txtImages" style="@style/InfoLine" android:text="이미지: -" />
+            <TextView android:id="@+id/txtBoard" style="@style/InfoLine" android:text="게시판: -" />
+            <TextView android:id="@+id/txtDuplicate" style="@style/InfoLine" android:text="중복 검사: -" />
+            <TextView android:id="@+id/txtImageValidation" style="@style/InfoLine" android:text="이미지 검증: -" />
+            <TextView android:id="@+id/txtStateStatus" style="@style/InfoLine" android:text="상태: -" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchTestMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="시험 모드 (이미지 저장/이력 기록 생략)" />
+        </LinearLayout>
+
+        <!-- 2) 권한 -->
+        <LinearLayout style="@style/CardBox">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="② 권한"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout style="@style/PermRow">
+                <TextView android:id="@+id/badgeAccessibility" style="@style/PermBadge" android:text="🟡 권한 필요" />
+                <Button android:id="@+id/btnAccessibility" style="@style/PermButton" android:text="접근성 설정" />
+            </LinearLayout>
+            <LinearLayout style="@style/PermRow">
+                <TextView android:id="@+id/badgeOverlay" style="@style/PermBadge" android:text="🟡 권한 필요" />
+                <Button android:id="@+id/btnOverlay" style="@style/PermButton" android:text="오버레이 설정" />
+            </LinearLayout>
+            <LinearLayout style="@style/PermRow">
+                <TextView android:id="@+id/badgeNotification" style="@style/PermBadge" android:text="🟡 권한 필요" />
+                <Button android:id="@+id/btnNotification" style="@style/PermButton" android:text="알림 설정" />
+            </LinearLayout>
+            <LinearLayout style="@style/PermRow">
+                <TextView android:id="@+id/badgePhoto" style="@style/PermBadge" android:text="🟢 준비" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:text="사진 저장(별도 권한 불필요)"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 3) 전체 자동 실행 -->
+        <LinearLayout style="@style/CardBox">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="③ 전체 자동 실행"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtAutomationConditions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="자료를 먼저 불러오세요"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btnStartAutomation"
+                style="@style/ActionButton"
+                android:layout_marginTop="8dp"
+                android:text="전체 자동 실행 시작" />
+
+            <TextView
+                android:id="@+id/txtAutomationStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="자동 실행 상태: -"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+                <Button android:id="@+id/btnAutomationPause" style="@style/StatusButton" android:text="일시정지" />
+                <Button android:id="@+id/btnAutomationResume" style="@style/StatusButton" android:text="이어하기" />
+                <Button android:id="@+id/btnAutomationCancel" style="@style/StatusButton" android:text="즉시 중지" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 4) 수동/복구 -->
+        <LinearLayout style="@style/CardBox">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="④ 수동 실행 · 복구"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/badgeImageSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="이미지 저장 대기"
+                android:textSize="13sp" />
+
+            <Button android:id="@+id/btnSaveImages" style="@style/ActionButton" android:text="이미지 갤러리에 다시 저장 (GPT공작소 앨범)" />
+            <Button android:id="@+id/btnOpenNaver" style="@style/ActionButton" android:text="네이버 블로그 앱 열기" />
+            <Button android:id="@+id/btnStartFloating" style="@style/ActionButton" android:text="플로팅 컨트롤 시작" />
+        </LinearLayout>
+
+        <!-- 5) 선택자 규칙 -->
+        <LinearLayout style="@style/CardBox">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⑤ 선택자 규칙(selector_rules.json)"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtSelectorVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="현재 규칙: -"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+                <Button android:id="@+id/btnSelectorLoad" style="@style/StatusButton" android:text="불러오기" />
+                <Button android:id="@+id/btnSelectorTrial" style="@style/StatusButton" android:text="시험 적용" />
+                <Button android:id="@+id/btnSelectorApply" style="@style/StatusButton" android:text="정식 적용" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button android:id="@+id/btnSelectorRestorePrev" style="@style/StatusButton" android:text="이전 복원" />
+                <Button android:id="@+id/btnSelectorRestoreDefault" style="@style/StatusButton" android:text="기본 복원" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 6) 발행 상태 기록 -->
+        <LinearLayout style="@style/CardBox">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⑥ 발행 상태 기록 (네이버에서 직접 처리 후 눌러 기록)"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <Button android:id="@+id/btnMarkPublished" style="@style/StatusButton" android:text="발행완료" />
+                <Button android:id="@+id/btnMarkDraft" style="@style/StatusButton" android:text="임시저장" />
+                <Button android:id="@+id/btnMarkCancelled" style="@style/StatusButton" android:text="취소" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 로그 -->
+        <LinearLayout style="@style/CardBox">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="최근 로그"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="아직 로그가 없습니다."
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:fontFamily="monospace" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
+            android:text="이 앱은 네이버 로그인/발행을 자동으로 하지 않습니다. 발행 버튼은 반드시 사용자가 직접 누릅니다."
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
+    </LinearLayout>
+</ScrollView>

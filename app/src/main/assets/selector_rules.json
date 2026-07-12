@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.1",
+  "rules_version": "1.1.0-builtin-unverified",
+  "target_app": {
+    "package": "com.nhn.android.blog",
+    "min_version": "",
+    "max_version": ""
+  },
+  "screens": {
+    "NAVER_HOME": {
+      "signals": [
+        { "view_id_contains": "home" }
+      ],
+      "write_button": [
+        { "text_contains": "글쓰기" },
+        { "desc_contains": "글쓰기" }
+      ]
+    },
+    "WRITE_EDITOR": {
+      "signals": [
+        { "hint_contains": "제목" },
+        { "view_id_contains": "title" },
+        { "view_id_contains": "editor" }
+      ],
+      "category_button": [
+        { "view_id_contains": "category" },
+        { "text_contains": "카테고리" },
+        { "desc_contains": "카테고리" }
+      ],
+      "title_field": [
+        { "view_id_contains": "title" },
+        { "hint_contains": "제목" },
+        { "hint_contains": "title" }
+      ],
+      "body_field": [
+        { "view_id_contains": "content" },
+        { "view_id_contains": "body" },
+        { "hint_contains": "본문" },
+        { "hint_contains": "내용" }
+      ],
+      "photo_button": [
+        { "desc_contains": "사진" },
+        { "text_contains": "사진" },
+        { "desc_contains": "이미지" }
+      ],
+      "tag_button": [
+        { "view_id_contains": "tag" },
+        { "hint_contains": "태그" },
+        { "text_contains": "태그" }
+      ]
+    },
+    "CATEGORY_DIALOG": {
+      "signals": [
+        { "text_contains": "카테고리" }
+      ],
+      "category_items": [
+        { "class_name": "android.widget.TextView", "clickable_only": true }
+      ],
+      "safe_confirm_button": [
+        { "text_exact": "확인", "screen_role": "CATEGORY_DIALOG" }
+      ]
+    },
+    "PHOTO_PICKER": {
+      "package_names": [],
+      "signals": [
+        { "text_contains": "앨범" }
+      ],
+      "album_button": [
+        { "desc_contains": "앨범" },
+        { "text_contains": "앨범" }
+      ],
+      "gpt_album_item": [
+        { "text_exact": "GPT공작소" },
+        { "desc_exact": "GPT공작소" }
+      ],
+      "photo_grid_items": [
+        { "class_name": "android.widget.ImageView", "clickable_only": true }
+      ],
+      "selected_count": [
+        { "view_id_contains": "selected_count" },
+        { "view_id_contains": "count" }
+      ],
+      "safe_done_button": [
+        { "text_exact": "완료", "screen_role": "PHOTO_PICKER" }
+      ]
+    }
+  }
+}

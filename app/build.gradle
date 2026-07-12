@@ -1,0 +1,80 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.gptgongjakso.naverwriterhelper'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.gptgongjakso.naverwriterhelper"   // 패키지명 유지(지시서 3)
+        minSdk 30            // Android 11. ACTION_IME_ENTER / MediaStore / 오버레이 안정 지원
+        targetSdk 34
+        versionCode 110      // v1.1.0: versionCode 110
+        versionName "1.1.0"  // v1.1.0: versionName 1.1.0
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // release 서명: 키/비밀번호는 소스에 넣지 않고 환경변수(GitHub Secrets)로만 주입한다.
+    //   RELEASE_KEYSTORE_PATH, RELEASE_KEYSTORE_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_KEY_PASSWORD
+    // 네 값이 모두 있고 키스토어 파일이 실제로 존재할 때만 signingConfig 를 활성화한다.
+    // (로컬/CI 에서 값이 없으면 release 는 미서명으로 빌드되고, debug 는 항상 자동 서명됨)
+    def relKsPath = System.getenv("RELEASE_KEYSTORE_PATH")
+    def relKsPass = System.getenv("RELEASE_KEYSTORE_PASSWORD")
+    def relKeyAlias = System.getenv("RELEASE_KEY_ALIAS")
+    def relKeyPass = System.getenv("RELEASE_KEY_PASSWORD")
+    def hasReleaseSigning = relKsPath && relKsPass && relKeyAlias && relKeyPass && file(relKsPath).exists()
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            release {
+                storeFile file(relKsPath)
+                storePassword relKsPass
+                keyAlias relKeyAlias
+                keyPassword relKeyPass
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            // debug 빌드는 debug.keystore 로 자동 서명되어 바로 설치 가능
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
+            // Secrets 미제공 시: 미서명 release (문서 BUILD_LOCAL_AND_CI.md 참고)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.activity:activity-ktx:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
+
+    testImplementation 'junit:junit:4.13.2'
+}

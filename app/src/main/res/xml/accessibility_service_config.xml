@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  접근성 조작 대상을 네이버 블로그 앱 1개로만 제한한다(v1.0.1).
+  (네이버 일반 앱/브라우저/기타 앱 화면은 관찰·조작하지 않음 → 프라이버시/보안 강화)
+  - dispatchGesture 등 좌표 제스처를 사용하지 않으므로 canPerformGestures=false
+  - 단일 활성 창(rootInActiveWindow)만 사용하므로 flagRetrieveInteractiveWindows 미사용
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewFocused"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagReportViewIds"
+    android:canPerformGestures="false"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="100"
+    android:packageNames="com.nhn.android.blog" />

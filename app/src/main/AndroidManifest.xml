@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      보안 원칙(v0.1.1 유지): INTERNET 권한을 선언하지 않는다.
+      -> 앱 자체는 어떤 서버로도 데이터를 보낼 수 없다. (글/이미지/계정정보 외부 전송 원천 차단)
+      네이버 열기는 다른 앱(브라우저/네이버앱)에 Intent 를 전달하는 방식이라 INTERNET 권한이 필요 없다.
+    -->
+
+    <!-- 다른 앱 위에 표시(플로팅 컨트롤) -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- 플로팅 컨트롤 유지용 포그라운드 서비스 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <!-- 알림(Android 13+) : 포그라운드 서비스 알림 표시용 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+      이미지 저장은 Android 10(API 29)+ MediaStore(scoped storage)를 사용하므로
+      WRITE_EXTERNAL_STORAGE 등 별도 저장 권한이 필요 없다.
+    -->
+
+    <!--
+      네이버 블로그 전용 앱 실행 및 설치 여부 조회 (Android 11+ 패키지 가시성).
+      v1.0.1: 네이버 일반 앱/브라우저 fallback 을 제거하면서 해당 조회 대상도 함께 제거했다.
+      market://, https Play 설치 페이지는 암시적 VIEW 인텐트로 처리되며
+      Play 스토어 자체는 패키지 가시성 없이도 열 수 있어 별도 <package> 선언이 필요 없다.
+    -->
+    <queries>
+        <package android:name="com.nhn.android.blog" />
+    </queries>
+
+    <application
+        android:name=".GptGongjaksoApp"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GptGongjakso"
+        tools:targetApi="34">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- ZIP 공유(다른 앱에서 '공유'로 자료 ZIP 전달) : 지시서 8 -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/zip" />
+                <data android:mimeType="application/x-zip-compressed" />
+                <data android:mimeType="application/octet-stream" />
+            </intent-filter>
+
+            <!-- ZIP 열기(파일앱에서 .zip 열기) : 지시서 8 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/zip" />
+            </intent-filter>
+        </activity>
+
+        <!-- 플로팅 컨트롤 (포그라운드 서비스, specialUse) -->
+        <service
+            android:name=".service.FloatingControlService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="네이버 글쓰기 화면 위에 사용자 조작용 입력 보조 컨트롤을 표시" />
+        </service>
+
+        <!-- 네이버 화면 입력 보조 접근성 서비스 -->
+        <service
+            android:name=".service.NaverAccessibilityService"
+            android:exported="false"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+    </application>
+
+</manifest>

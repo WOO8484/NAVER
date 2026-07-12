@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GPT 공작소</string>
+
+    <string name="accessibility_service_label">GPT 공작소 입력 보조</string>
+    <string name="accessibility_service_description">전체 자동 실행을 시작하면 네이버 글쓰기 화면의 게시판·제목·본문·사진·태그 입력을 자동으로 도와주고, 발행 직전에서 멈춥니다. 네이버 로그인과 발행·임시저장은 절대 자동으로 하지 않습니다. 발행 버튼은 반드시 사용자가 직접 눌러야 합니다.</string>
+
+    <!-- 배지 -->
+    <string name="badge_ready">🟢 준비 완료</string>
+    <string name="badge_need">🟡 권한 필요</string>
+    <string name="badge_no_data">🔴 자료 없음</string>
+    <string name="badge_loading">⏳ 불러오는 중</string>
+    <string name="badge_saving">⏳ 저장 중</string>
+    <string name="badge_granted_green">🟢 허용됨</string>
+    <string name="badge_ready_green">🟢 준비</string>
+
+    <!-- 안내 문구 -->
+    <string name="guide_notice">이 앱은 사용자가 직접 누른 버튼에 따라\n네이버 글쓰기 화면에 제목, 본문, 태그 입력을 도와줍니다.\n\n네이버 로그인과 발행은 자동으로 하지 않습니다.\n발행 버튼은 사용자가 직접 눌러야 합니다.</string>
+</resources>
